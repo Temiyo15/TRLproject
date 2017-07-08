@@ -1,4 +1,6 @@
 //Heather comments that the ArrayList data type comes from this library.
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /////////////////////////////////////////////////////////////////////////
@@ -14,73 +16,258 @@ import java.util.ArrayList;
 
 public class Patron
 {
-	private String name;
-	private String patronID;
+	private String patron_ID;
+	private String patron_name;
 	
-	//Heather comments an ArrayList is a dynamic array that can change size whenever we want.
-	//      This ArrayList holds a bunch of Copy objects.
+	//ArrayList is a dynamic array that can change size whenever we want.
+	//This ArrayList holds a bunch of CHECKED OUT Copy objects.
 	private ArrayList<Copy> copiesOut;
+	private ArrayList<Cla_ss> classes;	
+	private ArrayList<Textbook> books_required;
 	
+	//
+	//long data type to represent an unsigned 64-bit long, which has a minimum value of 0 and a maximum value of 264-1
+	private String phone;
+	
+	private String local_address;
+	private String perm_address;
+	private String email;
+	private String term;
+	
+	
+	//In Windows, generate getter and setters with: Alt + Shift + S
 	public Patron()
 	{
-		// Heather wrote this.
-		this.name = null;
-		this.patronID = null;
-		
-		//Updated by Temi
-		//this.setName("");
-		//this.setPatronID("");
-		
-		//ArrayList help
-		//See ArrayList Vs. array: https://www.youtube.com/watch?v=ZVJ7kpEMc7U
-		//See https://www.youtube.com/watch?v=L1a8R9nkJ4w
+		this.patron_ID = "";
+		this.patron_name = "";
 		
 		//Allocate some memory Copy objects. This has default capacity 10. It will resize when it reaches capacity.
 		this.copiesOut = new ArrayList<Copy>();	
+		this.classes = new ArrayList<Cla_ss>();
+		this.books_required = new  ArrayList<Textbook>();
+		//classes = new int[10];
+		//num_of_classes = this.classes.size();
+		
+		local_address = "";
+		perm_address = "";
+		email = "";
+		term = "";	
 		
 	}
-
-	public Patron(String id, String name)
+	//This is used for testing data and methods in the Patron class.
+	public Patron(String patron_id, String patron_name, String phoneNumber, String local_address, String perm_address, String email, String term, Textbook t)
 	{
-		// Heather wrote this.
-		this.name = name;
-		this.patronID = id;
+		//See FakeDB.java to see where data comes from.
 		
-		//Temi wrote this.
-		//this.setName("");
-		//this.setPatronID("");
+		this.patron_ID = patron_ID; //should = "p3"
+		this.patron_name = patron_name; //should = "Temi"
 		
-		//ArrayList help
-		//See ArrayList Vs. array: https://www.youtube.com/watch?v=ZVJ7kpEMc7U
-		//See https://www.youtube.com/watch?v=L1a8R9nkJ4w
-		
-		//Allocate some memory Copy objects. This has default capacity 10. It will resize when it reaches capacity.
+		//no data here. No copies checked out yet.
 		this.copiesOut = new ArrayList<Copy>();	
+		this.classes = new ArrayList<Cla_ss>();
+		this.books_required = new  ArrayList<Textbook>();
 		
+		
+	//Add a class to Temi's schedule (simulate an external event)....
+		//Get a couple Copies from the database
+		FakeDB db = new FakeDB();
+		
+		//Get a class from the database and add it to Temi's class list.
+		Cla_ss s1 = db.getClass("63002");	
+		db.getClass("63002").getBooks();
+		this.classes = new ArrayList<Cla_ss>();	
+		this.classes.add(s1);
+		
+		//Fetch requred texts for class 63002
+		this.books_required.add(t);
+		
+		this.setPhone(phoneNumber); //should be "6513333333"
+		
+		this.setLocal_address(local_address); //"123 St thomas blvd."
+		this.perm_address = perm_address;
+		this.email  = email;
+		this.term = term;
+
+	
 	}
 	
+	
+	public Patron(String id, String name)
+	{
+
+		this.patron_name = name;
+		this.patron_ID = id;
+		
+		
+		//ArrayList help
+		//See ArrayList Vs. array: https://www.youtube.com/watch?v=ZVJ7kpEMc7U
+		//See https://www.youtube.com/watch?v=L1a8R9nkJ4w
+		
+		//Allocate some memory Copy objects. This has default capacity 10. It will resize when it reaches capacity.
+		this.copiesOut = new ArrayList<Copy>();	
+		this.classes = new ArrayList<Cla_ss>();	
+		//classes = new int[10];
+		//num_of_classes = 0;
+		
+		phone = "" + 0;
+		
+		local_address = "";
+		perm_address = "";
+		email = "";
+		term = "";	
+		
+	}
+	public boolean payFines(Patron p)
+	{
+		boolean payFines = false;
+		Gui g;
+		
+		
+		return payFines;
+	}
+	public boolean removeHold(String Copy_ID)
+	{
+		boolean holdRemoved = false;
+		
+		//this.copiesOut
+		
+		return holdRemoved;
+	}
+//	  @Override
+//	public boolean equals(Object obj)
+//	{
+//		if (obj !=null && obj instanceof Patron)
+//		{
+//			String patron_ID = ((Patron)obj).getPatron_ID();
+//			String patron_name = ((Patron)obj).getPatron_name();
+//		
+//		if (patron_ID !=null && patron_ID.equals(this.patron_ID))
+//		{
+//			return true;
+//		}
+//	}
+//		return false;
+//	}
+	//https://www.youtube.com/watch?v=hgawTLk0o3Y
+//	   @Override
+//	    public boolean equals(Object obj) {
+//	        if (obj instanceof Patron) {
+//	            return a.isAssignableFrom(((TypePair) obj).a) && b.isAssignableFrom(((TypePair) obj).b);
+//	        } else {
+//	            return false;
+//	        }
+//	    }
+//
+//	    @Override
+//	    public int hashCode() {
+//	        return 1;
+//	    }
+	
+	public String classStrings()
+	{
+		String classes = "";
+		
+		for (int i = 0; i < this.classes.size(); i++) {
+			classes.equals(classes.concat(""+this.classes.get(i)));
+		}
+		
+		return classes;
+	}
+	public void setRequiredTextbook(Textbook e)
+	{
+		this.books_required.add(e);
+	}
+	public void setclass(Cla_ss e)
+	{
+		this.setclass(e);
+	}
+//	public String classStrings()
+//	{
+//		String classes = "";
+//		
+//		for (int i = 0; i < this.classes.length; i++)
+//		{
+//			if(this.classes[i] != 0)
+//			{
+//				classes = classes.concat(" "+ this.classes[i] + "/n");
+//			}
+//		}
+//		
+//		return classes;
+//	}
+	
 // Generate getters and setters using Eclipse Source menu.
-	public String getName() 
+	
+	public void setclass(int class_ID) 
 	{
-		return name;
+		
+		
+	}
+	public ArrayList<Textbook> getRequiredTextbooks() 
+	{
+		return this.books_required;
+	}
+	
+	public ArrayList<Cla_ss> getClasses() 
+	{
+		return this.classes;
+	}
+	
+	public String getPatron_name() {
+		return patron_name;
+	}
+
+	public void setPatron_name(String patron_name) {
+		this.patron_name = patron_name;
+	}
+
+	public String getPatron_ID() {
+		return patron_ID;
+	}
+
+	public void setPatron_ID(String patron_ID) {
+		this.patron_ID = patron_ID;
 	}
 
 
-	public void setName(String name) 
-	{
-		this.name = name;
+	public String getPhone() {
+		return this.phone;
 	}
 
-
-	public String getPatronID() 
-	{
-		return patronID;
+	public void setPhone(String phoneNumber) {
+		this.phone = phoneNumber;
 	}
 
+	public String getLocal_address() {
+		return local_address;
+	}
 
-	public void setPatronID(String patronID) 
-	{
-		this.patronID = patronID;
+	public void setLocal_address(String local_address) {
+		this.local_address = local_address;
+	}
+
+	public String getPerm_address() {
+		return perm_address;
+	}
+
+	public void setPerm_address(String perm_address) {
+		this.perm_address = perm_address;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
 	}
 
 
@@ -89,34 +276,94 @@ public class Patron
 		return copiesOut;
 	}
 
-
-	public void setCopiesOut(ArrayList<Copy> copiesOut) 
+//works
+	public void setCopyOut(Copy copyOut) 
 	{
-		this.copiesOut = copiesOut;
+		this.copiesOut.add(copyOut);
+	}
+	
+	public int countClasses()
+	{
+		int count = 0;
+		
+		count = this.classes.size();
+		
+		StdOut.println( "--- Patron.countclasses() = " + count);
+		
+	return count;	
+	}
+	public void addClasstoSchedule(Cla_ss c)
+	{
+		this.classes.add(c);
 	}
 	
 	///////////////////////////////////////////////////////
+	//	USECASE #1 PATRON CHECKSOUT N BOOKS
+	///////////////////////////////////////////////////////
 	
-	//Temi wrote this
-	public boolean isInArrayList(Copy c)
-	{
-		boolean result = false;
-		
-		if (this.getCopiesOut().contains(c))
-			result = true;
-		else
-			result = false;
-		
-	return result;
-	}
+//	DONE 1.A Patron brings some number, N, of Textbook Copies. 
+//	DONE 2.Worker enters the Patron's patron_ID and initiates the checkout process. 
 
-	//What does this mean? See requirements.
+//	DONE 3.The System checks for Holds on the Patron account. (method checkHasHolds())
+
+//	4. The System retrieves the list of classes that the Patron is taking/teaching, and associates those classes with a list of required Textbooks (book_record). 
+//	5. The Worker enters a number, N, that represents the number of Textbook Copies that a Patron has brought to the WorkerStation for checkout. 
+//	6. The Worker scans the barcode of a Textbook Copy. 
+//	7. The System verifies that the Textbook Copy title is on the Patron's list of required Textbooks (book_record). 
+//	8. The Worker enters the book's Copy_ID, a unique identifier for each Copy of the Textbook. 
+
 	
-	//Temi wrote this - question about where a 'master list' of all books should go.
+//	9. The System initiates a CheckOut event. It changes the state of this Copy to 'Checked out,' by associating this Copy_ID with the patron_ID and todays_date.  
+//     The System makes a Record of this System Event called 'Checkout.' The System concludes this Checkout event by returning a message to the Worker. 
+//	     Repeat steps 6, 7, 8, and 9 for each of the N Textbook Copies. 
+
+//	10. The System tells the Worker the due_date for the Checkedout Textbook Copies. The Worker verbally informs the Patron of the due date. 
+//	11. The Patron leaves the store with their rented Textbook Copies.
+//	
+//	
+	
+	
+///////////////////////////////////////////////////////////
+//	This is step 3 of UseCase #1. PATRON CHECKSOUT N BOOKS
+///////////////////////////////////////////////////////////
+	public boolean checkHasHolds()
+	{
+		boolean has_holds = false;
+		
+		//search this.copiesOut ArrayList for holds. It is size 10.
+		
+		if (this.copiesOut.isEmpty())
+		{
+			has_holds = false;
+		}
+		else
+		{
+			for (Copy c : this.copiesOut) 
+			{
+				  if (c.hasHold() == true)
+				  {
+					  has_holds = true;
+					  
+				  }
+			}
+		}
+		return has_holds;
+	}
+	
+///////////////////////////////////////////////////////////
+//UC #1, Steps 3 and 4 are in the controller class, Rental Library.
+///////////////////////////////////////////////////////////
+
+	
 	public boolean checkCopyOut(Copy c)
 	{
+
 		// finish this
 		boolean bookCheckedOut = false;
+		
+		//check holds
+		
+		
 		
 		//Put book back into inventory at the Rental office
 		this.getCopiesOut().add(c);
@@ -129,10 +376,24 @@ public class Patron
 		//   got the book from the rental office. It is now stored in his
 		//   arrayList of books.
 
-		bookCheckedOut = this.isInArrayList(c);	
+		bookCheckedOut = this.CopyisInArrayList(c);	
 		
 		return bookCheckedOut;
 	}
+
+	public boolean CopyisInArrayList(Copy c)
+	{
+		boolean result = false;
+		
+		if (this.getCopiesOut().contains(c))
+			result = true;
+		else
+			result = false;
+		
+	return result;
+	}
+
+
 
 	//What does this mean? See requirements.
 	
@@ -146,7 +407,7 @@ public class Patron
 		//Get the ID of the book that is being returned (checkedIn).
 		String book_ID_for_removal = c.getCopyID();
 		
-		Patron person_checking_in_a_book = null;
+		Patron person_checking_in_a_book;
 		
 		//Get the ID of the person that is returning a book to the rental shop (checkingIn).
 		String patron_id = c.getOutToID();
@@ -155,7 +416,7 @@ public class Patron
 		person_checking_in_a_book = FakeDB.getPatron(patron_id);
 		
 		//Get the ID of the person's name.
-		String patron_name_checked_out_to = person_checking_in_a_book.getName();
+		String patron_name_checked_out_to = person_checking_in_a_book.getPatron_name();
 		
 		
 		//Put book back into inventory at the Rental office
@@ -174,13 +435,13 @@ public class Patron
 		bookReturned = this.getCopiesOut().remove(c);
 		
 		//set the value of Copy.outTo to null because no one has it checked out.
-		c.setOutTo(null);
+		//c.setOutTo("");
 		
 		
 		//if the book is still in Erics arrayList, then return false, else 
 		//   return true, indicating that Eric gave the book back to the rental office.
 	
-		bookReturned = this.isInArrayList(c);	
+		bookReturned = this.CopyisInArrayList(c);	
 		bookReturned = !(bookReturned);
 		
 		return bookReturned;
@@ -194,7 +455,7 @@ public class Patron
 		
 		Patron p = (Patron) o;
 		
-		if (this.patronID.equals(p.getPatronID()))
+		if (this.patron_ID.equals(p.getPatron_ID()))
 		{
 			return true;
 		}
@@ -209,7 +470,7 @@ public class Patron
 		
 		String p = "";
 		
-		p = p.concat("PATRON ID: " + this.getPatronID() + "\n" + "PATRON NAME: " + this.getName() + "\n" + "PATRON'S CHECKED OUT BOOKS: " + this.getCopiesOut() + "\n");
+		p = p.concat("PATRON ID: " + this.getPatron_ID() + "\n" + "PATRON NAME: " + this.getPatron_name() + "\n" + "PATRON'S CHECKED OUT BOOKS: " + this.getCopiesOut() + "\n");
 		
 		// Heather says test p1.toString() in main.
 		
