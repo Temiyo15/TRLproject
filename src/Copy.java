@@ -27,9 +27,9 @@ public class Copy extends Textbook
 	LocalDate today = LocalDate.now();
 	
 	//All Textbooks and Copys will be Not Overdue, unless we change the due_date
-
+	
 	public Copy(Textbook t,String copyID)
-	{
+	{	
 		this.copyID = copyID;		
 		this.checked_out = false;
 		this.overdue = false;
@@ -143,7 +143,7 @@ public class Copy extends Textbook
 
 	public String getCopyID() 
 	{
-		return copyID;
+		return this.copyID;
 	}
 
 	public void setCopyID(String copyID) 
