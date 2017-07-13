@@ -4,19 +4,19 @@ import org.junit.Test;
 
 public class TextbookTest {
 
-//	@Test
-//	public void testTextbook() {
-//			}
+	// @Test
+	// public void testTextbook() {
+	// }
 
-//	@Test
-//	public void testTextbookTextbook() {
-//		fail("Not yet implemented");
-//	}
+	// @Test
+	// public void testTextbookTextbook() {
+	// fail("Not yet implemented");
+	// }
 
-//	@Test
-//	public void testTextbookStringStringIntIntDoubleLocalDate() {
-//		fail("Not yet implemented");
-//	}
+	// @Test
+	// public void testTextbookStringStringIntIntDoubleLocalDate() {
+	// fail("Not yet implemented");
+	// }
 
 	@Test
 	public void testToString() {
@@ -84,7 +84,7 @@ public class TextbookTest {
 		tx.setText_title("Programming");
 		tx.setPrice_if_lost(2.5);
 		tx.getPrice_if_lost();
-		assertEquals(2.5,2.5, tx.getPrice_if_lost());
+		assertEquals(2.5, 2.5, tx.getPrice_if_lost());
 	}
 
 	@SuppressWarnings("deprecation")
@@ -93,7 +93,7 @@ public class TextbookTest {
 		Textbook tx = new Textbook();
 		tx.setText_title("Programming");
 		tx.setPrice_if_lost(0);
-		assertEquals(0,0, tx.getPrice_if_lost());
+		assertEquals(0, 0, tx.getPrice_if_lost());
 	}
 
 	@Test
